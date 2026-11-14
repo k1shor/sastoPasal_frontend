@@ -1,26 +1,180 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
+@custom-variant dark (&:is(.dark *));
+
+/* LIGHT MODE */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --background: oklch(97.8% 0.003 247); /* #F8FAFC */
+  --foreground: oklch(10.9% 0.017 247); /* #0F172A */
+  --card: oklch(100% 0 0); /* #FFFFFF */
+  --card-foreground: oklch(10.9% 0.017 247);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(10.9% 0.017 247);
+
+  /* Primary — #00855D */
+  --primary: oklch(52.2% 0.144 158.4);
+  --primary-foreground: oklch(100% 0 0);
+
+  /* Secondary — slate surface */
+  --secondary: oklch(96.7% 0.003 247); /* #F1F5F9 */
+  --secondary-foreground: oklch(10.9% 0.017 247);
+
+  /* Muted */
+  --muted: oklch(96.7% 0.003 247); /* #F1F5F9 */
+  --muted-foreground: oklch(44.6% 0.017 247); /* #64748B */
+
+  /* Accent — Amber #F59E0B for hover states */
+  --accent: oklch(95.5% 0.02 87); /* amber-50 */
+  --accent-foreground: oklch(10.9% 0.017 247);
+
+  /* Destructive — Rose #DC2626 */
+  --destructive: oklch(49.5% 0.196 27.8); /* #DC2626 */
+
+  /* Borders & inputs */
+  --border: oklch(89.6% 0.006 247); /* #E2E8F0 */
+  --input: oklch(89.6% 0.006 247);
+  --ring: oklch(52.2% 0.144 158.4);
+
+  /* Semantic feedback */
+  --success: oklch(49.7% 0.152 149.1); /* #16A34A */
+  --success-foreground: oklch(100% 0 0);
+  --warning: oklch(72.7% 0.181 85.8); /* #F59E0B */
+  --warning-foreground: oklch(10.9% 0.017 247);
+  --info: oklch(43.9% 0.163 264.4); /* #2563EB */
+  --info-foreground: oklch(100% 0 0);
+
+  /* Sidebar — slightly off-white surface */
+  --sidebar: oklch(100% 0 0); /* #FFFFFF */
+  --sidebar-foreground: oklch(10.9% 0.017 247);
+  --sidebar-primary: oklch(52.2% 0.144 158.4); /* #00855D active */
+  --sidebar-primary-foreground: oklch(100% 0 0);
+  --sidebar-accent: oklch(52.2% 0.144 158.4);
+  --sidebar-accent-foreground: oklch(100% 0 0);
+  --sidebar-border: oklch(89.6% 0.006 247);
+  --sidebar-ring: oklch(52.2% 0.144 158.4);
 }
 
+/* DARK MODE */
+.dark {
+  /* Surfaces */
+  --background: oklch(11.1% 0.022 248); /* #0B1220 */
+  --foreground: oklch(97.8% 0.003 247); /* #F9FAFB */
+  --card: oklch(15.8% 0.022 248); /* #111827 */
+  --card-foreground: oklch(97.8% 0.003 247);
+  --popover: oklch(19.5% 0.022 248); /* #1F2937 */
+  --popover-foreground: oklch(97.8% 0.003 247);
+
+  /* Primary — brighter green for dark mode readability */
+  --primary: oklch(65.3% 0.176 163.2); /* #10B981 */
+  --primary-foreground: oklch(100% 0 0);
+
+  /* Secondary */
+  --secondary: oklch(19.5% 0.022 248); /* #1F2937 */
+  --secondary-foreground: oklch(97.8% 0.003 247);
+
+  /* Muted */
+  --muted: oklch(19.5% 0.022 248);
+  --muted-foreground: oklch(60.8% 0.01 247); /* #9CA3AF */
+
+  /* Accent */
+  --accent: oklch(19.5% 0.022 248);
+  --accent-foreground: oklch(97.8% 0.003 247);
+
+  /* Destructive */
+  --destructive: oklch(63.4% 0.218 27.8); /* #EF4444 */
+
+  /* Borders & inputs */
+  --border: oklch(19.5% 0.022 248 / 80%); /* #1F2937 */
+  --input: oklch(19.5% 0.022 248);
+  --ring: oklch(65.3% 0.176 163.2);
+
+  /* Semantic feedback */
+  --success: oklch(65.3% 0.176 163.2); /* #10B981 */
+  --success-foreground: oklch(100% 0 0);
+  --warning: oklch(72.7% 0.181 85.8); /* #F59E0B */
+  --warning-foreground: oklch(11.1% 0.022 248);
+  --info: oklch(59.6% 0.167 264); /* #38BDF8 */
+  --info-foreground: oklch(100% 0 0);
+
+  /* Sidebar */
+  --sidebar: oklch(15.8% 0.022 248); /* #111827 */
+  --sidebar-foreground: oklch(97.8% 0.003 247);
+  --sidebar-primary: oklch(65.3% 0.176 163.2); /* #10B981 */
+  --sidebar-primary-foreground: oklch(100% 0 0);
+  --sidebar-accent: oklch(65.3% 0.176 163.2);
+  --sidebar-accent-foreground: oklch(100% 0 0);
+  --sidebar-border: oklch(19.5% 0.022 248);
+  --sidebar-ring: oklch(65.3% 0.176 163.2);
+}
+
+/* @theme inline maps CSS custom properties into Tailwind utility classes. */
 @theme inline {
+  /* Core shadcn tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Semantic feedback tokens */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Sidebar tokens */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Font */
+  --font-sans: var(--font-inter);
+
+  /* Border radii — 8px base with graduated scale */
+  --radius-sm: 0.25rem; /* 4px — badges, chips */
+  --radius-md: 0.5rem; /* 8px — buttons, inputs */
+  --radius-lg: 0.75rem; /* 12px — cards, panels */
+  --radius-xl: 1rem; /* 16px — modals, drawers */
+  --radius-2xl: 1.5rem; /* 24px — large containers */
+  --radius: 0.5rem; /* default for shadcn components */
+
+  /* Sidebar layout dimensions */
+  --sidebar-width: 260px;
+  --sidebar-width-icon: 72px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-size: 14px; /* PROJECT.md: minimum body text 14px */
+  }
+  html {
+    @apply font-sans;
+  }
 }
