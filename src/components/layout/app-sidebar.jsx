@@ -9,25 +9,20 @@ import {
   BarChart3,
   MonitorSmartphone,
   HelpCircle,
-  ChevronLeft,
-  ChevronRight,
 } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
   SidebarTrigger,
-  useSidebar,
 } from '@/components/ui/sidebar';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+import { Logo } from '@/components/layout/logo';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -38,7 +33,7 @@ const navItems = [
   { label: 'POS Terminal', href: '/pos', icon: MonitorSmartphone },
 ];
 
-function NavItem({ item, isCollapsed }) {
+function NavItem({ item }) {
   const pathname = usePathname();
   const isActive = pathname.startsWith(item.href);
   const Icon = item.icon;
@@ -48,24 +43,24 @@ function NavItem({ item, isCollapsed }) {
       <SidebarMenuButton
         render={<Link href={item.href} />}
         isActive={isActive}
-        tooltip={
-          isCollapsed ? (item.badge ? `${item.label} (${item.badge})` : item.label) : undefined
-        }
+        tooltip={item.badge ? `${item.label} (${item.badge})` : item.label}
         className={cn(
-          'h-10 gap-2.5 rounded-lg px-3 transition-colors',
+          'h-12 gap-3.5 rounded-full px-4 text-[15px] transition-colors',
           isActive
-            ? 'bg-sidebar-primary text-sidebar-primary-foreground data-active:bg-sidebar-primary data-active:text-sidebar-primary-foreground font-medium hover:bg-sidebar-primary hover:text-sidebar-primary-foreground'
-            : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+            ? 'bg-primary font-medium text-primary-foreground shadow-sm hover:bg-primary/90 hover:text-primary-foreground data-active:bg-primary data-active:text-primary-foreground'
+            : 'font-normal text-sidebar-foreground/65 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground',
         )}
       >
-        <Icon className="size-5 shrink-0" />
-        {!isCollapsed && <span className="truncate">{item.label}</span>}
-        {!isCollapsed && item.badge && (
+        <Icon className="size-5 shrink-0" strokeWidth={1.75} />
+        <span className="truncate group-data-[collapsible=icon]:hidden">{item.label}</span>
+        {item.badge && (
           <Badge
             variant="secondary"
             className={cn(
-              'ml-auto shrink-0 text-xs font-semibold',
-              isActive ? 'bg-white/20 text-white' : 'bg-warning/20 text-warning-foreground',
+              'ml-auto shrink-0 rounded-full px-2 text-[11px] font-semibold group-data-[collapsible=icon]:hidden',
+              isActive
+                ? 'bg-primary-foreground/20 text-primary-foreground'
+                : 'bg-sidebar-foreground/10 text-sidebar-foreground/70',
             )}
           >
             {item.badge}
@@ -77,94 +72,36 @@ function NavItem({ item, isCollapsed }) {
 }
 
 export function AppSidebar() {
-  const { state } = useSidebar();
-  const isCollapsed = state === 'collapsed';
-
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
-      {/* ── Header: Collapse control + logo ── */}
-      <SidebarHeader className="px-4 py-3">
-        <div
-          className={cn(
-            'flex min-w-0 gap-2',
-            isCollapsed ? 'flex-col items-center' : 'flex-row items-center justify-between',
-          )}
-        >
-          <div className="flex items-center mt-2 gap-2 min-w-0">
-            {/* SVG logo mark — always visible */}
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              className="shrink-0"
-              aria-hidden="true"
-            >
-              <rect width="32" height="32" rx="8" className="fill-primary" />
-              <path
-                d="M9 12h14M9 16h10M9 20h12"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <circle cx="23" cy="20" r="3" fill="white" />
-            </svg>
-            {/* Wordmark — hidden when icon-only */}
-            {!isCollapsed && (
-              <div className="min-w-0">
-                <span className="block font-bold text-base leading-tight tracking-tight text-foreground truncate">
-                  SastoPasal
-                </span>
-                <span className="block text-[11px] text-muted-foreground leading-tight truncate">
-                  Vendor Portal
-                </span>
-              </div>
-            )}
-          </div>
+      {/* ── Brand + collapse control ── */}
+      <SidebarHeader className="px-4 pt-6 pb-4">
+        <div className="flex items-center justify-between gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:pt-1 group-data-[collapsible=icon]:gap-2.5">
+          <Link
+            href="/products"
+            className="flex min-w-0 items-center rounded-lg outline-hidden focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+            aria-label="SastoPasal home"
+          >
+            <Logo showName nameClassName="group-data-[collapsible=icon]:hidden" />
+          </Link>
 
-          <SidebarTrigger className="size-8 shrink-0 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-            {isCollapsed ? <ChevronRight className="size-4" /> : <ChevronLeft className="size-4" />}
-          </SidebarTrigger>
+          <SidebarTrigger className="size-8 shrink-0 rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground group-data-[collapsible=icon]:size-7" />
         </div>
-
-        {/* Store status pill */}
-        {!isCollapsed && (
-          <div className="mt-2 flex items-center gap-1.5 px-1">
-            <span className="size-2 rounded-full bg-success animate-pulse shrink-0" />
-            <span className="text-xs text-muted-foreground truncate">
-              Kathmandu Hub · Store Online
-            </span>
-          </div>
-        )}
       </SidebarHeader>
 
-      <Separator className="bg-sidebar-border" />
-
-      {/* ── Nav ── */}
-      <SidebarContent className="px-2 py-3">
-        <SidebarGroup>
-          {!isCollapsed && (
-            <SidebarGroupLabel className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground px-2 mb-1">
-              Omnichannel Catalog
-            </SidebarGroupLabel>
-          )}
-          <SidebarMenu className="gap-0.5">
-            {navItems.map((item) => (
-              <NavItem key={item.href} item={item} isCollapsed={isCollapsed} />
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
+      {/* ── Navigation ── */}
+      <SidebarContent className="px-3 pt-6 pb-2">
+        <SidebarMenu className="gap-2.5">
+          {navItems.map((item) => (
+            <NavItem key={item.href} item={item} />
+          ))}
+        </SidebarMenu>
       </SidebarContent>
 
-      {/* ── Footer: Help ── */}
-      <SidebarFooter className="px-2 pb-4">
-        <Separator className="mb-3 bg-sidebar-border" />
-
+      {/* ── Help ── */}
+      <SidebarFooter className="px-3 pt-2 pb-4">
         <SidebarMenu>
-          <NavItem
-            item={{ label: 'Help & Support', href: '/help', icon: HelpCircle }}
-            isCollapsed={isCollapsed}
-          />
+          <NavItem item={{ label: 'Help & Support', href: '/help', icon: HelpCircle }} />
         </SidebarMenu>
       </SidebarFooter>
 

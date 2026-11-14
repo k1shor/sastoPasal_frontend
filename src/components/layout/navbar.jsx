@@ -15,6 +15,7 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Logo } from '@/components/layout/logo';
 
 const PAGE_TITLES = {
   products: 'Products',
@@ -54,35 +55,15 @@ export function Navbar() {
     <header className="sticky top-0 z-40 flex h-14 md:h-16 items-center gap-2 border-b border-border bg-card px-4 md:px-6">
       {/* ── Left:  ── */}
       <div className="flex items-center gap-2 flex-1 min-w-0">
-        {/* Mobile logo mark */}
-        <div className="flex md:hidden items-center gap-2">
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 32 32"
-            fill="none"
-            aria-hidden="true"
-            className="shrink-0"
-          >
-            <rect width="32" height="32" rx="8" className="fill-primary" />
-            <path
-              d="M9 12h14M9 16h10M9 20h12"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <circle cx="23" cy="20" r="3" fill="white" />
-          </svg>
-          <span className="font-bold text-sm text-foreground">SastoPasal</span>
+        {/* Mobile logo — sidebar is hidden below md */}
+        <div className="flex md:hidden">
+          <Logo size="sm" showName />
         </div>
 
         {/* Page title — desktop/tablet only */}
-        <div className="hidden md:flex flex-col">
-          <span className="font-semibold text-base leading-tight text-foreground">{title}</span>
-          <span className="text-[11px] text-muted-foreground leading-tight">
-            Dashboard / {title}
-          </span>
-        </div>
+        <span className="hidden md:block truncate font-semibold text-base text-foreground">
+          {title}
+        </span>
       </div>
 
       {/* ── Right: store status (desktop), theme toggle, notifications, avatar ── */}
