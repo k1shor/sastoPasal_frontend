@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Sales — SastoPasal',
+  title: 'Sales  SastoPasal',
   description: 'View sales analytics, revenue reports, and performance metrics.',
 };
 

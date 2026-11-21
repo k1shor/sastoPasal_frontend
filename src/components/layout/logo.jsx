@@ -5,10 +5,6 @@ const SIZE_STYLES = {
   md: { box: 'size-9 rounded-xl', glyph: 'size-[22px]' },
 };
 
-/**
- * SastoPasal brand mark, optionally followed by the wordmark.
- * Colours come from theme tokens only (no hardcoded values).
- */
 export function Logo({ size = 'md', showName = false, className, nameClassName }) {
   const styles = SIZE_STYLES[size] ?? SIZE_STYLES.md;
 

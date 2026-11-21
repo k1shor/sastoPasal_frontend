@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutGrid, BarChart3, Settings, HelpCircle } from 'lucide-react';
+import { LayoutGrid, BarChart3, HelpCircle } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -18,15 +18,8 @@ const moreLinks = [
   { label: 'Sales', href: '/sales', icon: BarChart3 },
 ];
 
-const secondaryLinks = [
-  { label: 'Store Settings', href: '/settings', icon: Settings },
-  { label: 'Help & Support', href: '/help', icon: HelpCircle },
-];
+const secondaryLinks = [{ label: 'Help & Support', href: '/help', icon: HelpCircle }];
 
-/**
- * Bottom sheet triggered by the "More" tab on mobile.
- * Contains nav items that don't fit in the bottom tab bar.
- */
 export function MoreSheet({ open, onOpenChange }) {
   const pathname = usePathname();
 
@@ -36,7 +29,7 @@ export function MoreSheet({ open, onOpenChange }) {
         <SheetHeader className="pb-3">
           <SheetTitle className="text-base font-semibold">More</SheetTitle>
           <SheetDescription className="sr-only">
-            Additional navigation options for Categories, Sales, Settings, and Help.
+            Additional navigation options for Categories, Sales, and Help.
           </SheetDescription>
         </SheetHeader>
 

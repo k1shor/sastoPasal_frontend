@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Logo } from '@/components/layout/logo';
+import { ProductSearch } from '@/components/shared/product-search';
 
 const PAGE_TITLES = {
   products: 'Products',
@@ -50,25 +51,29 @@ function ThemeToggle() {
 
 export function Navbar() {
   const title = usePageTitle();
+  const pathname = usePathname();
+  const showSearch = pathname.startsWith('/products');
 
   return (
     <header className="sticky top-0 z-40 flex h-14 md:h-16 items-center gap-2 border-b border-border bg-card px-4 md:px-6">
-      {/* ── Left:  ── */}
-      <div className="flex items-center gap-2 flex-1 min-w-0">
-        {/* Mobile logo — sidebar is hidden below md */}
+      {/* ── Left: title + product search ── */}
+      <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
         <div className="flex md:hidden">
           <Logo size="sm" showName />
         </div>
 
-        {/* Page title — desktop/tablet only */}
-        <span className="hidden md:block truncate font-semibold text-base text-foreground">
+        <span className="hidden md:block shrink-0 truncate font-semibold text-base text-foreground">
           {title}
         </span>
+
+        {showSearch && (
+          <div className="hidden md:block w-full max-w-sm">
+            <ProductSearch />
+          </div>
+        )}
       </div>
 
-      {/* ── Right: store status (desktop), theme toggle, notifications, avatar ── */}
       <div className="flex items-center gap-1.5">
-        {/* Store online indicator — desktop only */}
         <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 text-success text-xs font-medium mr-1">
           <span className="size-1.5 rounded-full bg-success animate-pulse" />
           Physical + Online Live

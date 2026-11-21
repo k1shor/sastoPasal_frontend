@@ -11,10 +11,6 @@ const tabs = [
   { label: 'POS', href: '/pos', icon: MonitorSmartphone },
 ];
 
-/**
- * Fixed bottom tab bar shown only on mobile (< md).
- * The "More" tab is handled by the parent — it triggers the MoreSheet.
- */
 export function MobileTabBar({ onMorePress }) {
   const pathname = usePathname();
 
